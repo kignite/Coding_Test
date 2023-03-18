@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
+import { configureStore } from "@reduxjs/toolkit"
+import { Provider } from "react-redux"
+import adminSlice from "./store/adminSlice";
+
+const store = configureStore({
+  reducer: {
+    admin: adminSlice,
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Routes>
+          <Route index element={<LoginPage />} />
+          <Route path="main" element={<MainPage />} />
+        </Routes>
+      </div>
+    </Provider>
   );
 }
 
